@@ -12,6 +12,7 @@ const [luku, setLuku] = useState(0)
         <h3>{luku}</h3>
 
         <button onClick={() => setLuku(luku + 1)}>+</button>
+        <button onClick={() => setLuku(luku - 1)}>-</button>
 
 
         <button onClick={huomio}>huomio</button>
