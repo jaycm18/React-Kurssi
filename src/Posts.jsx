@@ -27,7 +27,7 @@ const handleButtonClick = () => {
       {showPosts && (
         <div>
           {posts.map(post => (
-            <div key={post.id} className="post">
+            <div key={post.id} className="posts">
               <h3>{post.title}</h3>
               <p>{post.body}</p>
             </div>
