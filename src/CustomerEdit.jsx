@@ -72,38 +72,65 @@ const handleSubmit = (event) => {
                 <input type="text" value={newCustomerId} disabled />
             </div>
             <div>
+                <label>Company name</label>
+                </div>
+                <div>
                 <input type="text" value={newCompanyName} placeholder="Company name"
                     onChange={({ target }) => setNewCompanyName(target.value)} required />
             </div>
             <div>
+                <label>Contact name</label>
+                </div>
+                <div>
                 <input type="text" value={newContactName} placeholder="Contact name"
                     onChange={({ target }) => setNewContactName(target.value)} />
             </div>
             <div>
+                <label>Contact title</label>
+                </div>
+                <div>
                 <input type="text" value={newContactTitle} placeholder="Contact title"
                     onChange={({ target }) => setNewContactTitle(target.value)} />
             </div>
             <div>
+                <label>Country</label>
+                </div>
+                <div>
                 <input type="text" value={newCountry} placeholder="Country"
                     onChange={({ target }) => setNewCountry(target.value)} />
             </div>
             <div>
+                <label>Address</label>
+                </div>
+                <div>
                 <input type="text" value={newAddress} placeholder="Address"
                     onChange={({ target }) => setNewAddress(target.value)} />
             </div>
             <div>
+                <label>City</label>
+                </div>
+                <div>
                 <input type="text" value={newCity} placeholder="City"
                     onChange={({ target }) => setNewCity(target.value)} />
             </div>
             <div>
+                <label>Postal code</label>
+                </div>
+                <div>
                 <input type="text" value={newPostalCode} placeholder="Postal code"
                     onChange={({ target }) => setNewPostalCode(target.value)} />
             </div>
             <div>
+                <label>Phone</label>
+                </div>
+                <div>
                 <input type="text" value={newPhone} placeholder="Phone"
                     onChange={({ target }) => setNewPhone(target.value)} />
             </div>
             <div>
+                <label>Fax</label>
+                </div>
+                <div>
                 <input type="text" value={newFax} placeholder="Fax"
                     onChange={({ target }) => setNewFax(target.value)} />
             </div>
