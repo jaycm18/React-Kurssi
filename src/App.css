@@ -5,6 +5,10 @@
   text-align: center;
 }
 
+#userTable {
+  margin: auto;
+}
+
 .neg {
   color: red;
   background: lightgrey;
