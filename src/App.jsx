@@ -5,6 +5,7 @@ import Posts from './Posts'
 import CustomerList from './CustomerList'
 import UserList from './UserList'
 import Message from './Message'
+import ProductList from './ProductList'
 
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
@@ -30,6 +31,7 @@ return (
         <Navbar bg="dark" variant="dark" fixed="top">
           <Nav className="mr-auto">
               <Nav.Link href='/customers'>Customers</Nav.Link>
+              <Nav.Link href='/products'>Products</Nav.Link>
               <Nav.Link href='/posts'>Some highlights</Nav.Link>
               <Nav.Link href='/users'>Users</Nav.Link>
               <Nav.Link href='/laskuri'>Laskuri</Nav.Link>
@@ -43,6 +45,11 @@ return (
       <Routes>
         <Route path="/customers"
         element={<CustomerList setMessage={setMessage} setIsPositive={setIsPositive} 
+        setShowMessage={setShowMessage} />}>
+        </Route>
+
+        <Route path="/products"
+        element={<ProductList setMessage={setMessage} setIsPositive={setIsPositive}
         setShowMessage={setShowMessage} />}>
         </Route>
 
