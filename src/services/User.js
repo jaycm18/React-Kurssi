@@ -1,40 +1,41 @@
-import axios from 'axios';
+import axios from 'axios'
 
-const baseUrl = 'https://localhost:7134/api/users';
+//const baseUrl = 'https://localhost:7134/api/users'
+const baseUrl = 'https://northwindrestapijmo.azurewebsites.net/api/users'
 
 let token = null;
 
 const setToken = newToken => {
-    token = `Bearer ${newToken}`;
-};
+    token = `Bearer ${newToken}`
+}
 
 const getAll = () => {
     const config = {
         headers: { Authorization: token },
-    };
-    const request = axios.get(baseUrl, config);
-    return request.then(response => response.data);
-};
+    }
+    const request = axios.get(baseUrl, config)
+    return request.then(response => response.data)
+}
 
 const create = newUser => {
     const config = {
         headers: { Authorization: token },
-    };
-    return axios.post(baseUrl, newUser, config);
-};
+    }
+    return axios.post(baseUrl, newUser, config)
+}
 
 const remove = id => {
     const config = {
         headers: { Authorization: token },
-    };
-    return axios.delete(`${baseUrl}/${id}`, config);
-};
+    }
+    return axios.delete(`${baseUrl}/${id}`, config)
+}
 
 const update = object => {
     const config = {
         headers: { Authorization: token },
-    };
-    return axios.put(`${baseUrl}/${object.UserId}`, object, config);
-};
+    }
+    return axios.put(`${baseUrl}/${object.UserId}`, object, config)
+}
 
-export default { getAll, create, remove, update, setToken };
+export default { getAll, create, remove, update, setToken }

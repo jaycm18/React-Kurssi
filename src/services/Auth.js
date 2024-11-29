@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const baseUrl = "https://localhost:7134/api/authentication"
+//const baseUrl = "https://localhost:7134/api/authentication"
+const baseUrl = "https://northwindrestapijmo.azurewebsites.net/api/authentication"
 
 const authenticate = (userForAuth) => {
     console.log("Request payload:", userForAuth); // Log the request payload
