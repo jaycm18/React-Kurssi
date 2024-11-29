@@ -1,52 +1,78 @@
-import './App.css'
-import React, {useState, useEffect} from 'react'
-import UserService from './services/User'
-import UserAdd from './UserAdd'
+import './App.css';
+import React, { useState, useEffect } from 'react';
+import UserService from './services/User';
+import UserAdd from './UserAdd';
 
+const UserList = ({ setIsPositive, setShowMessage, setMessage }) => {
+    // Komponentin tilojen ja sitä muuttavien set metodien määritys, sekä alustaminen
+    const [users, setUsers] = useState([]);
+    const [lisäystila, setLisäystila] = useState(false);
+    const [muokkaustila, setMuokkaustila] = useState(false);
+    const [reload, reloadNow] = useState(false);
+    const [muokattavaUser, setMuokattavaUser] = useState(null);
+    const [search, setSearch] = useState('');
+    const [accessLevelId, setAccessLevelId] = useState(null);
 
-const UserList = ({setIsPositive, setShowMessage, setMessage}) => {
+    // useEffect hook ajetaan aina alussa kerran
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        UserService.setToken(token);
 
-// Komponentin tilojen ja sitä muuttavien set metodien määritys, sekä alustaminen
-const [users, setUsers] = useState([])
-const [lisäystila, setLisäystila] = useState(false)
-const [muokkaustila, setMuokkaustila] = useState(false)
-const [reload, reloadNow] = useState(false)
-const [muokattavaUser, setMuokattavaUser] = useState(null)
-const [search, setSearch] = useState("")
+        const accessLevelId = localStorage.getItem('accesslevelId');
+        setAccessLevelId(accessLevelId);
 
-// useEffect hook ajetaan aina alussa kerran
-useEffect(() => {
-  UserService.getAll()
-  .then(data => {
-    setUsers(data)
-})
-},[lisäystila, reload, muokkaustila] // Nämä statet jos muuttuu niin useEffect() ajetaan uudestaan
-)
+        if (accessLevelId === '1') {
+            UserService.getAll().then(data => {
+                setUsers(data);
+            });
+        }
+    }, [lisäystila, reload, muokkaustila]); // Nämä statet jos muuttuu niin useEffect() ajetaan uudestaan
 
-  //Hakukentän onChange tapahtumankäsittelijä
-  const handleSearchInputChange = (event) => {
-    setSearch(event.target.value.toLowerCase())
-}
+    //Hakukentän onChange tapahtumankäsittelijä
+    const handleSearchInputChange = (event) => {
+        setSearch(event.target.value.toLowerCase());
+    };
 
-const editUsers = (user) => {
-  setMuokattavaUser(user)
-  setMuokkaustila(true)
-}
+    const editUsers = (user) => {
+        setMuokattavaUser(user);
+        setMuokkaustila(true);
+    };
 
-  return (
-    <>
-        <h1><nobr>Users</nobr>
+    // Render nothing if the user does not have access level 1
+    if (accessLevelId !== '1') {
+        return null;
+    }
 
-                {lisäystila && <UserAdd setLisäystila={setLisäystila}
-                setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage} />}
+    return (
+        <>
+            <h1>
+                <nobr>Users</nobr>
 
-                {!lisäystila && <button className="nappi" onClick={() => setLisäystila(true)}>Add new</button>}</h1>
+                {lisäystila && (
+                    <UserAdd
+                        setLisäystila={setLisäystila}
+                        setIsPositive={setIsPositive}
+                        setMessage={setMessage}
+                        setShowMessage={setShowMessage}
+                    />
+                )}
 
-                {!lisäystila && !muokkaustila &&
-                <input placeholder="Search by Last Name" value={search} onChange={handleSearchInputChange} />
-                }
-                
-                {!lisäystila && !muokkaustila &&
+                {!lisäystila && (
+                    <button className="nappi" onClick={() => setLisäystila(true)}>
+                        Add new
+                    </button>
+                )}
+            </h1>
+
+            {!lisäystila && !muokkaustila && (
+                <input
+                    placeholder="Search by Last Name"
+                    value={search}
+                    onChange={handleSearchInputChange}
+                />
+            )}
+
+            {!lisäystila && !muokkaustila && (
                 <table id="userTable">
                     <thead>
                         <tr>
@@ -57,37 +83,26 @@ const editUsers = (user) => {
                         </tr>
                     </thead>
                     <tbody>
-
-                    
-                
-
-
-                {users && users.map(u =>
-                {
-                    const lowerCaseName = u.lastname.toLowerCase()
-                    if (lowerCaseName.indexOf(search) > -1) {
-                        return(
-                            <tr key={u.userId}>
-                                <td>{u.firstname}</td>
-                                <td>{u.lastname}</td>
-                                <td>{u.email}</td>
-                                <td>{u.accesslevelId}</td>
-                            </tr>                          
-
-                
-                                    )
+                        {users &&
+                            users.map((u) => {
+                                const lowerCaseName = u.lastname.toLowerCase();
+                                if (lowerCaseName.indexOf(search) > -1) {
+                                    return (
+                                        <tr key={u.userId}>
+                                            <td>{u.firstname}</td>
+                                            <td>{u.lastname}</td>
+                                            <td>{u.email}</td>
+                                            <td>{u.accesslevelId}</td>
+                                        </tr>
+                                    );
                                 }
-                            }   
-                        )   
-                    }
-
+                                return null;
+                            })}
                     </tbody>
+                </table>
+            )}
+        </>
+    );
+};
 
-                    </table>
-                    }
-
-                    </>
-                )
-            }
-
-export default UserList
+export default UserList;

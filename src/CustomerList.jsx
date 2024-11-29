@@ -17,13 +17,20 @@ const [muokattavaCustomer, setMuokattavaCustomer] = useState(null)
 const [search, setSearch] = useState("")
 
 
+// UseEffect ajetaan aina alussa kerran
 useEffect(() => {
+
+  const token = localStorage.getItem('token')
+        CustomerService
+            .setToken(token)
+            
   CustomerService.getAll()
   .then(data => {
     setCustomers(data)
 })
 },[lisäystila, reload, muokkaustila] // Nämä statet jos muuttuu niin useEffect() ajetaan uudestaan
 )
+
 
   //Hakukentän onChange tapahtumankäsittelijä
   const handleSearchInputChange = (event) => {

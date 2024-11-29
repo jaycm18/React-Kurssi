@@ -18,10 +18,12 @@ const [search, setSearch] = useState("")
 
 // useEffect hook ajetaan aina alussa kerran
 useEffect(() => {
-  ProductService.getAll()
-  .then(data => {
-    setProducts(data)
-})
+    const token = localStorage.getItem('token');
+    ProductService.setToken(token);
+
+    ProductService.getAll().then(data => {
+        setProducts(data);
+    })
 },[lisäystila, reload, muokkaustila] // Nämä statet jos muuttuu niin useEffect() ajetaan uudestaan
 )
 
